@@ -1,12 +1,13 @@
 steps:
-  # List GKE Clusters available on GCP Project & Connect to GKE cluster via gcloud
-  # Get Acccess Token to be used by Helm 3 Registry to auth to Artifact Registry
+  # List GKE Clusters available on GCP Project & Connect to specific GKE cluster via gcloud
+  # Get Acccess Token to be used by Helm 3 Registry to auth to GCP Artifact Registry
   - name: 'gcr.io/cloud-builders/gcloud'
     script: |
       #!/usr/bin/env bash
       gcloud container clusters list    
       gcloud container clusters get-credentials devops --region=us-central1
       gcloud auth application-default print-access-token > app-default-token.txt
+  # Auth Helm 3 to GCP Artifact Registry & install chart on GCP GKE.
   - name: 'gcr.io/$PROJECT_ID/helm'
     script: |
       helm version
