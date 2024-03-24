@@ -12,6 +12,6 @@ steps:
     script: |
       helm version
       cat app-default-token.txt | helm registry login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
-      helm upgrade --force --install --namespace default my-rest-api . --values values.yaml
+      helm upgrade --force --install --set image.tag=_IMAGE_TAG --namespace default my-rest-api . --values values.yaml
       helm list --namespace default
       helm status my-rest-api

@@ -7,7 +7,7 @@ replicaCount: 3
 image:
   repository: us-central1-docker.pkg.dev/test-oa-1544228308666/epam-docker-repo/my-rest-api
   pullPolicy: Always
-  tag: 0.3.0
+  #tag: 0.3.0
 
 imagePullSecrets: []
 nameOverride: my-rest-api
