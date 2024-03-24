@@ -9,12 +9,16 @@ steps:
       gcloud auth application-default print-access-token > app-default-token.txt
   # Auth Helm 3 to GCP Artifact Registry & install chart on GCP GKE.
   - name: 'gcr.io/$PROJECT_ID/helm'
+    env:
+      - 'IMAGE_TAG=${_IMAGE_TAG}'
     script: |
       helm version
       cat app-default-token.txt | helm registry login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
       echo "Image tag: ${_IMAGE_TAG}"
-      helm upgrade --force --install --set image.tag=${_IMAGE_TAG} --namespace default my-rest-api . --values values.yaml
+      helm upgrade --force --install --set image.tag=$IMAGE_TAG --namespace default my-rest-api . --values values.yaml
       helm list --namespace default
       helm status my-rest-api
 substitutions:
   _IMAGE_TAG: latest
+options:
+  dynamicSubstitutions: true
