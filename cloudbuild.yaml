@@ -9,7 +9,6 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     script: |
       gcloud auth application-default print-access-token > app-default-token.txt
-      cat app-default-token.txt
   - name: 'gcr.io/$PROJECT_ID/helm'
     script: |
       cat app-default-token.txt | helm registry login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
